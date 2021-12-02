@@ -1,0 +1,22 @@
+How to Fix "cannot update unmounted component" Warning with React Hooks
+
+
+function Page() {
+  const [data, setData] = React.useState(null);
+ 
+  React.useEffect(() => {
+    let unmounted = false;
+    console.log("Running effect to fetch data");
+ 
+    setTimeout(() => {
+      console.log("Data loaded for page");
+ 
+      if (!unmounted) {
+        setData("Some data you loaded from a server somewhere...");
+      }
+    }, 3000);
+ 
+    return () => {
+      unmounted = true;
+    };
+  }, []);
